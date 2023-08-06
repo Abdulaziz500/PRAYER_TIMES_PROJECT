@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أوقات الصلوات</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "tajawal",sans-serif;
+            background: linear-gradient(45deg,#240165,#05001c);
+        }
+
+        #city-name {
+            font-weight: 400;
+            font-size: 200px;
+            color: white;
+
+        }
+
+        h1,h2,h3,h4,h5,h6 {
+            margin: 0px;
+        }
+
+        .card {
+            width: 12%;
+            height: 95%;
+            background-color: white;
+            font-size: 20px;
+            box-shadow: 0px 10px 5px rgb(0 0 0 / 30%);
+        }
+        .header {
+            background: linear-gradient(45deg,#5709ee,#7a37bf);
+            color:white;
+        }
+
+        .header h1 {
+            font-weight: 400;
+            padding: 5px;
+        }
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .time {
+            font-size: 70px;
+        }
+    </style>
+</head>
+<body style="direction: rtl;">
+    <div style="height: 100vh;">
+
+        <div style="margin-top: 100px;">
+            
+
+            <!--City Name and date-->
+            <div style="color: white; margin-right: 40px">
+                <h1 id="city-name">الرياض</h1>
+                <h6 style="font-size: 40px; font-weight: 200;" id="date">الجمعة ٢٤ نوفمبر</h6>
+
+            </div>
+            <!--//City Name and date//-->
+
+            <hr style="margin: 0px 5px; border-color:#5200e1;">
+
+            <!--Prayer Timings-->
+            <div class="center" style="height: 300px; margin-top: 80px; justify-content:space-around">
+
+                <!--Card-->
+                <div class="card">
+                    
+                    <div class="header">
+                        <h1>الفجر</h1>
+                    </div>
+
+                    <div class="body center" style="height: 80%;">
+                        <h1 class="time" id="fajr-time">
+                            4:30
+                        </h1>
+                    </div>
+                </div>
+                <!--//Card//-->
+
+                <!--Card-->
+                <div class="card">
+                    
+                    <div class="header">
+                        <h1>الشروق</h1>
+                    </div>
+
+                    <div class="body center" style="height: 80%;">
+                        <h1 class="time" id="sunrise-time">
+                            4:30
+                        </h1>
+                    </div>
+                </div>
+                <!--//Card//-->
+
+                <!--Card-->
+                <div class="card">
+                    
+                    <div class="header">
+                        <h1>الظهر</h1>
+                    </div>
+
+                    <div class="body center" style="height: 80%;">
+                        <h1 class="time" id="dhuhr-time">
+                            4:30
+                        </h1>
+                    </div>
+                </div>
+                <!--//Card//-->
+
+                <!--Card-->
+                <div class="card">
+                    
+                    <div class="header">
+                        <h1>العصر</h1>
+                    </div>
+
+                    <div class="body center" style="height: 80%;">
+                        <h1 class="time" id="asr-time">
+                            4:30
+                        </h1>
+                    </div>
+                </div>
+                <!--//Card//-->
+
+                <!--Card-->
+                <div class="card">
+                    
+                    <div class="header">
+                        <h1>المغرب</h1>
+                    </div>
+
+                    <div class="body center" style="height: 80%;">
+                        <h1 class="time" id="sunset-time">
+                            4:30
+                        </h1>
+                    </div>
+                </div>
+                <!--//Card//-->
+
+                <!--Card-->
+                <div class="card">
+                    
+                    <div class="header">
+                        <h1>العشاء</h1>
+                    </div>
+
+                    <div class="body center" style="height: 80%;">
+                        <h1 class="time" id="isha-time">
+                            4:30
+                        </h1>
+                    </div>
+                </div>
+                <!--//Card//-->
+            </div>
+            <!--//Prayer Timings//-->
+
+
+            <!--Change city select-->
+            <div class="center" style="margin-top: 120px;">
+                <select name="" id="cities-select" style="height: 35px; width:300px; font-size: 25px; font-family: tajawal; background: none; color:white; padding:5px; border-radius: 20px">
+                </select>
+
+            </div>
+            <!--//Change city select//-->
+
+
+        </div>
+
+
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    
+    let cities = [
+        {
+            arabicName: "الرياض",
+            name: "Ar Riyāḑ"
+        },
+        {
+            arabicName: "مكة المكرمة",
+            name: "Makkah al Mukarramah"
+        },
+        {
+            arabicName: "جازان",
+            name: "Jāzān"
+        }    
+    ]
+
+    for(let city of cities) {
+        const content = `
+        <option>${city.arabicName}</option>
+        `
+        document.getElementById("cities-select").innerHTML += content
+    }
+
+    document.getElementById("cities-select").addEventListener("change",function(){
+
+        document.getElementById("city-name").innerHTML = this.value
+        let cityName = ""
+        for(let city of cities) {
+            if(city.arabicName == this.value){
+                cityName = city.name
+                console.log(cityName)
+            }
+        }
+        getPrayersTimingsOfCity(cityName)
+    })
+    
+    function getPrayersTimingsOfCity(cityName) {
+
+        let params = {
+            country : "SA",
+            city : cityName
+        }
+        console.log(params.city)
+        
+        axios.get("http://api.aladhan.com/v1/timingsByCity",{
+            params : params
+        }).then(response => {
+            console.log(response.data.data.timings)
+    
+            const timings = response.data.data.timings
+    
+            fillTimeForPrayer("fajr-time",timings.Fajr)
+            fillTimeForPrayer("sunrise-time",timings.Sunrise)
+            fillTimeForPrayer("dhuhr-time",timings.Dhuhr)
+            fillTimeForPrayer("asr-time",timings.Asr)
+            fillTimeForPrayer("sunset-time",timings.Sunset)
+            fillTimeForPrayer("isha-time",timings.Isha)
+    
+            const readable = response.data.data.date.readable
+            const weekday = response.data.data.date.hijri.weekday.ar
+            const date = `${weekday} ${readable}`
+            document.getElementById("date").innerHTML = date
+            
+        }).catch(error => {
+            console.log(error)
+        })
+
+    }
+    
+    getPrayersTimingsOfCity("Ar Riyāḑ")
+
+    function fillTimeForPrayer(id,time) {
+        document.getElementById(id).innerHTML = time
+    }
+</script>
+</html>
